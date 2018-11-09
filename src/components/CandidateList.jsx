@@ -6,47 +6,50 @@ import logo_thanos from './img/thanos.jpg'
 export class CandidateList extends React.Component {
     render() {
     return (
-        <div className="candidates-list my-4">
+        <div className="candidates-list">
             <div className="loadContent">
                 <div className="container">
                     <div className="row">
-                    <div className="col text-center candidate mb-4 px-5">
-                            <img  className="img-block mb-3" src={logo_darkvador}/>
-                                <div className="hover false">
-                                    <div className="loadedContent">
-                                    </div>
-                                </div>
-                            <h2 className="text-light text-uppercase text-left mb-0">
-                                Dark Vador
-                                <small className="float-right mt-2">43</small>               
+                        <div className="col text-center candidate mb-4 px-5">
+                            <h2 className="text-light text-uppercase my-1 font-weight-light">
+                                Dark Vador                                       
                             </h2>
-                            <hr className="bg-light line mt-0"></hr>
+                            <div className="img-block mt-2 mb-2">
+                                <img  src={logo_darkvador} alt="Dark Vador"/>
+                            </div>
+                            <div>
+                                <div className="hover false">
+                                    <div className="loadedContent"></div>
+                                </div> 
+                            </div>
                         </div>
                         <div className="col text-center candidate mb-4 px-5">
-                            <img  className="img-block mb-3" src={logo_thanos}/>
-                                <div className="hover false">
-                                    <div className="loadedContent">
-                                    </div>
-                                </div>
-                            <h2 className="text-light text-uppercase text-left mb-0">
-                                Thanos
-                                <small className="float-right mt-2">57</small>               
-                            </h2>
-                            <hr className="bg-light line mt-0"></hr>
+                        <h2 className="text-light text-uppercase my-1 font-weight-light">
+                            Thanos                                       
+                        </h2>
+                        <div className="img-block mt-2 mb-2">
+                            <img  src={logo_thanos} alt="Thanos"/>
                         </div>
-                        <div className="col text-center candidate mb-4 px-5">
-                            <img  className="img-block mb-3" src={logo_voldemort}/>
-                                <div className="hover false">
-                                    <div className="loadedContent">
-                                    </div>
-                                </div>
-                            <h2 className="text-light text-uppercase text-left mb-0">
-                                Voldemort
-                                <small className="float-right mt-2">57</small>               
-                            </h2>
-                            <hr className="bg-light line mt-0"></hr>
+                        <div>
+                            <div className="hover false">
+                                <div className="loadedContent"> </div>
+                            </div> 
                         </div>
                     </div>
+                    <div className="col text-center candidate mb-4 px-5">
+                        <h2 className="text-light text-uppercase my-1 font-weight-light">
+                            Voldemort                                       
+                        </h2>
+                        <div className="img-block mt-2 mb-2">
+                            <img  src={logo_voldemort} alt="Voldemort"/>
+                        </div>
+                        <div>
+                            <div className="hover false">
+                                <div className="loadedContent"></div>
+                            </div> 
+                        </div>
+                    </div>  
+                    </div>                   
                 </div>
             </div>
         </div>
