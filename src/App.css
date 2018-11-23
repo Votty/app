@@ -1,44 +1,37 @@
 /* #region GENERAL */
-body{
-  color: white;
-}
 
-.App{
-  position: relative;
-  z-index: 1;
-}
-
+/*first div which cover all the screen*/
 .overlay {
   background: linear-gradient(120grad, rgb(198, 16, 101),rgba(150, 16, 120, 1) );
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
+  right: 0;
+}
+
+.container{
+  padding: 0 !important;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
 }
 
 /* #endregion */
 
-/* #region TITLE */
-
-.text-pink{
-  color: #c61065;
-}
-
-/* #endregion */
-
-/* #region REGISTER BUTTON */
+/* #region REGISTRATION */
 
 #registration-form {
   width: 400px;
-  background: transparent;
   margin: auto;
 }
 #registration-form > div {
   position: relative;
-  z-index: 4;
+  z-index: 2;
   background: white;
   padding: 20px 40px;
-  border-radius: 15px 15px 0 0;
+  border-radius: 5px 5px 0 0;
 }
 #registration-form > div h1 {
   font-weight: 700;
@@ -55,6 +48,7 @@ body{
   margin: 0;
   margin-top: 5px;
 }
+
 #registration-form form {
   position: relative;
   height: 75px;
@@ -66,12 +60,13 @@ body{
   left: 50%;
   transform: translate(-50%, 0);
   height: 75px;
-  border-radius: 0 0 15px 15px;
+  border-radius: 0 0 5px 5px;
   overflow: hidden;
-  z-index: 2;
+  z-index: 1;
   box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.3);
   transition: all 0.2s linear;
 }
+
 #registration-form .input-section.folded {
   width: 100%;
   left: 50%;
@@ -90,19 +85,7 @@ body{
 #registration-form .input-section.folded span {
   background-color: red;
 }
-#registration-form .input-section.folded + .folded {
-  width: 90%;
-  margin-top: 20px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  z-index: 0;
-}
-#registration-form .input-section.folded + .folded input {
-  background-color: #e1bcef;
-}
-#registration-form .input-section.folded + .folded span {
-  background-color: #e1bcef;
-}
+
 #registration-form .input-section.fold-up {
   margin-top: -75px;
 }
@@ -164,7 +147,7 @@ body{
   height: 75px;
   border-radius: 0 0 15px 15px;
   overflow: hidden;
-  z-index: 2;
+  z-index: 1;
   box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.3);
   transition: all 0.2s linear;
   background: limegreen;
@@ -228,10 +211,404 @@ body{
 
 /* #endregion */
 
+/* #region ADMIN SELECTION */
+
+#Selection button {
+  background: none;
+  border: 3px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  display: block;
+  font-size: 1em;
+  font-weight: bold;
+  margin: 1.5em auto;
+  padding: 1.5em;
+  position: relative;
+  text-transform: uppercase;
+  width: 60%;
+  cursor: pointer;
+}
+
+/* #endregion */
+
+/* #region BALLOT CREATION */
+
+fieldset{
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.container-form{
+  width : 70% !important;
+}
+
+.wrapper{
+  width: 100%;
+  margin: 30px 0;
+}
+
+/* STEPS */
+
+.steps{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  text-align: center;
+}
 
 
+.steps li{
+  display: inline-block;
+  margin: 20px;
+  color: #ccc;
+  padding-bottom: 5px;
+}
+
+.steps li.is-active{
+  border-bottom: 1px solid rgb(198, 16, 101);
+  color: rgb(198, 16, 101);
+}
+
+/* FORM */
+
+.form-wrapper .section{
+  padding: 0px 20px 30px 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #fff;
+  opacity: 0;
+  -webkit-transform: scale(1, 0);
+  -ms-transform: scale(1, 0);
+  -o-transform: scale(1, 0);
+  transform: scale(1, 0);
+  -webkit-transform-origin: top center;
+  -moz-transform-origin: top center;
+  -ms-transform-origin: top center;
+  -o-transform-origin: top center;
+  transform-origin: top center;
+  -webkit-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  min-height: 400px
+}
+
+.form-wrapper .section h3{
+  margin-bottom: 30px;
+}
+
+.form-wrapper .section.is-active{
+  opacity: 1;
+  -webkit-transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  -o-transform: scale(1, 1);
+  transform: scale(1, 1);
+}
+
+.form-wrapper > .section > .button, .form-wrapper .submit{
+  background-color: rgb(198, 16, 101);;
+  display: inline-block;
+  padding: 8px 30px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px !important;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+.form-wrapper input[type="text"], .form-wrapper input[type="date"], .form-control{
+  display: block;
+  padding: 10px;
+  margin: 10px auto;
+  background-color: #f1f1f1 !important;
+  border: none;
+  width: 50% !important;
+  outline: none;
+  font-size: 14px !important;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+}
+/* #endregion */
+
+/* #region ADD CANDIDATE */
+
+.add {
+  cursor: pointer;
+  position: absolute;
+  background-color: rgb(198, 16, 101);
+  left: 20px;
+  bottom: 20px;
+  border: 2px solid #fff;
+  color: #fff !important;
+  text-align: center;
+  text-decoration: none;
+  padding: 8px 30px;
+}
+
+.pop-up {
+  position: fixed;
+  display: block;
+  margin: 5% auto;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  width: 100%;
+  max-width: 62.5rem;
+}
+
+.pop-up:before, .pop-up:after {
+  content: " ";
+  display: table;
+}
+
+.pop-up span {
+  color: dimgray;
+}
+
+.pop-up .box {
+  background-color: whitesmoke;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+  position: relative;
+  -webkit-box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
+  width: 50%;
+}
+
+.pop-up .close-button {
+  cursor: pointer;
+  transition: all 0.5s ease;
+  position: absolute;
+  background-color: rgb(198, 16, 101);
+  padding: 1.5px 7px;
+  left: 0;
+  margin-left: -13px;
+  margin-top: -10px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  color: #fff !important;
+  -webkit-box-shadow: -4px -2px 6px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: -4px -2px 6px 0px rgba(0,0,0,0.1);
+  box-shadow: -3px 1px 6px 0px rgba(0,0,0,0.1);
+  text-align: center;
+  text-decoration: none;
+  line-height: inherit;
+}
+
+.pop-up .close-button:hover {
+  background-color: rgba(150, 16, 120, 1);
+  color: #fff !important;
+}
+
+.pop-up h3 {
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: #fff;
+  background-color: rgb(198, 16, 101);;
+  font-size: 25px;
+}
+
+.pop-up p {
+  padding: 20px 65px 10px 65px;
+  color: dimgray;
+}
+
+.pop-up button, .pop-up .button {
+  border-style: solid;
+  border-width: 0px;
+  cursor: pointer;
+  font-weight: normal;
+  line-height: normal;
+  margin: 0 0 1.25rem;
+  position: relative;
+  text-decoration: none;
+  text-align: center;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  display: inline-block;
+  padding-top: 1rem;
+  padding-right: 2rem;
+  padding-bottom: 1.0625rem;
+  padding-left: 2rem;
+  font-size: 1rem;
+  border-color: #007095;
+  color: white;
+  transition: background-color 300ms ease-out;
+  background-color: rgb(198, 16, 101);;
+  display: inline-block;
+  color: #fff;
+  cursor: pointer;
+}
+
+.blur-in {
+  -webkit-animation: blur 0.5s forwards;
+  -moz-animation: blur 0.5s forwards;
+  -o-animation: blur 0.5s forwards;
+  animation: blur 0.5s forwards;
+}
+
+.blur-out {
+  -webkit-animation: blur-out 0.5s forwards;
+  -moz-animation: blur-out 0.5s forwards;
+  -o-animation: blur-out 0.5s forwards;
+  animation: blur-out 0.5s forwards;
+}
 
 
+@-webkit-keyframes blur {
+  0% {
+      -webkit-filter: blur(0px);
+      -moz-filter: blur(0px);
+      -o-filter: blur(0px);
+      -ms-filter: blur(0px);
+      filter: blur(0px);
+  }
 
+  100% {
+      -webkit-filter: blur(4px);
+      -moz-filter: blur(4px);
+      -o-filter: blur(4px);
+      -ms-filter: blur(4px);
+      filter: blur(4px);
+  }
+}
+
+@-moz-keyframes blur {
+  0% {
+      -webkit-filter: blur(0px);
+      -moz-filter: blur(0px);
+      -o-filter: blur(0px);
+      -ms-filter: blur(0px);
+      filter: blur(0px);
+  }
+
+  100% {
+      -webkit-filter: blur(4px);
+      -moz-filter: blur(4px);
+      -o-filter: blur(4px);
+      -ms-filter: blur(4px);
+      filter: blur(4px);
+  }
+}
+
+@-o-keyframes blur {
+  0% {
+      -webkit-filter: blur(0px);
+      -moz-filter: blur(0px);
+      -o-filter: blur(0px);
+      -ms-filter: blur(0px);
+      filter: blur(0px);
+  }
+
+  100% {
+      -webkit-filter: blur(4px);
+      -moz-filter: blur(4px);
+      -o-filter: blur(4px);
+      -ms-filter: blur(4px);
+      filter: blur(4px);
+  }
+}
+
+@keyframes blur {
+  0% {
+      -webkit-filter: blur(0px);
+      -moz-filter: blur(0px);
+      -o-filter: blur(0px);
+      -ms-filter: blur(0px);
+      filter: blur(0px);
+  }
+
+  100% {
+      -webkit-filter: blur(4px);
+      -moz-filter: blur(4px);
+      -o-filter: blur(4px);
+      -ms-filter: blur(4px);
+      filter: blur(4px);
+  }
+}
+
+@-webkit-keyframes blur-out {
+  0% {
+      -webkit-filter: blur(4px);
+      -moz-filter: blur(4px);
+      -o-filter: blur(4px);
+      -ms-filter: blur(4px);
+      filter: blur(4px);
+  }
+
+  100% {
+      -webkit-filter: blur(0px);
+      -moz-filter: blur(0px);
+      -o-filter: blur(0px);
+      -ms-filter: blur(0px);
+      filter: blur(0px);
+  }
+}
+
+@-moz-keyframes blur-out {
+  0% {
+      -webkit-filter: blur(4px);
+      -moz-filter: blur(4px);
+      -o-filter: blur(4px);
+      -ms-filter: blur(4px);
+      filter: blur(4px);
+  }
+
+  100% {
+      -webkit-filter: blur(0px);
+      -moz-filter: blur(0px);
+      -o-filter: blur(0px);
+      -ms-filter: blur(0px);
+      filter: blur(0px);
+  }
+}
+
+@-o-keyframes blur-out {
+  0% {
+      -webkit-filter: blur(4px);
+      -moz-filter: blur(4px);
+      -o-filter: blur(4px);
+      -ms-filter: blur(4px);
+      filter: blur(4px);
+  }
+
+  100% {
+      -webkit-filter: blur(0px);
+      -moz-filter: blur(0px);
+      -o-filter: blur(0px);
+      -ms-filter: blur(0px);
+      filter: blur(0px);
+  }
+}
+
+@keyframes blur-out {
+  0% {
+      -webkit-filter: blur(4px);
+      -moz-filter: blur(4px);
+      -o-filter: blur(4px);
+      -ms-filter: blur(4px);
+      filter: blur(4px);
+  }
+
+  100% {
+      -webkit-filter: blur(0px);
+      -moz-filter: blur(0px);
+      -o-filter: blur(0px);
+      -ms-filter: blur(0px);
+      filter: blur(0px);
+  }
+}
+
+/* #endregion */
 
 
