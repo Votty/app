@@ -3,6 +3,8 @@ import logo_voldemort from './img/voldemort.jpg'
 import logo_darkvador from './img/darkvador.jpg'
 import logo_thanos from './img/thanos.jpg'
 
+//Used to display the candidate list
+
 export class CandidateList extends React.Component {
     render() {
     return (
