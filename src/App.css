@@ -2,12 +2,16 @@
 
 /*first div which cover all the screen*/
 .overlay {
-  background: linear-gradient(120grad, rgb(198, 16, 101),rgba(150, 16, 120, 1) );
+  /*background: linear-gradient(120grad, rgb(198, 16, 101),rgba(150, 16, 120, 1) );*/
+  background-image: url("https://pbs.twimg.com/media/C6TGVG6VUAAQcNQ.jpg");
+  background-size: cover;
+background-repeat: no-repeat;
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   right: 0;
+
 }
 
 .container{
@@ -19,6 +23,31 @@
 }
 
 /* #endregion */
+
+/*Custom CSS for voting page*/
+
+
+#image img {
+    max-width: 40%;
+      margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 50px;
+}
+
+#text h1{
+   font-family: Georgia, serif;
+    font-style: italic;
+    letter-spacing: 1.25px;
+    line-height: 1.5;
+    /*background: #EEEEEE;*/
+    padding: 5px;
+    margin: auto 15px;
+/*postech color*/
+    color: #C80051;  
+}
+
+/*Region end*/
 
 /* #region REGISTRATION */
 
@@ -214,8 +243,9 @@
 /* #region ADMIN SELECTION */
 
 #Selection button {
-  background: none;
-  border: 3px solid #fff;
+  /*change the colors of the buttons*/
+  background: #C80051;
+  border: 3px solid #C80051; 
   border-radius: 5px;
   color: #fff;
   display: block;

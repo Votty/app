@@ -6,6 +6,7 @@ import { Register } from './components/Register.jsx';
 import { Admin } from './components/Admin.jsx';
 import 'font-awesome/css/font-awesome.min.css';
 
+
 class App extends Component {
   render() {
     return (
