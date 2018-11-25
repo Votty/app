@@ -1,6 +1,9 @@
 import React from 'react';
 import { CandidateList } from './CandidateList.jsx';
 
+
+
+
 export class Register extends React.Component {
 
     constructor(props) {
@@ -64,9 +67,13 @@ export class Register extends React.Component {
             <div className="App">
 
                 {/*App title */}
-                <div className="container zindex-modal">
-                    <h1 className="my-4 text-light">
-                        VOTTY <br /> Blockchain-based voting platform
+                <div id= "image" className="container zindex-modal"> <img 
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Postech_Logotype.svg/2000px-Postech_Logotype.svg.png"
+      alt="new" 
+      />                     </div>
+<div id='text' className="container zindex-modal"> 
+                    <h1 className="my-4 text-center">
+                        Blockchain-based voting platform
                 </h1>
                     <hr className="bg-light" />
 

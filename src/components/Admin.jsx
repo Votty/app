@@ -208,15 +208,22 @@ export class Admin extends React.Component {
             case "selection":
                 return (
                     <div className="App">
-                        <div className="container zindex-modal">
+                    <div id= "image" className="container zindex-modal"> <img 
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Postech_Logotype.svg/2000px-Postech_Logotype.svg.png"
+      alt="new" 
+      />                     </div>
 
-                            {/*App title*/}
-                            <a href="#" style={{ textDecoration: "none" }} onClick={this.reset}>
-                                <h1 className="my-4 text-light">
-                                    VOTTY <br /> Blockchain-based voting platform
-                                </h1>
-                            </a>
-                            <hr className="bg-light" />
+
+      <div id='text' className="container zindex-modal">
+             <a href="#" style={{ textDecoration: "none" }} onClick={this.reset}>
+ 
+                    <h1 className="my-4 text-center">
+                        Blockchain-based voting platform
+                </h1>
+                </a>
+                    <hr className="bg-light" />
+
+                            
 
                             {/*Notification displayed when a voting is created*/}
                             <div className={this.state.success ? "alert alert-success" : "d-none"} role="alert">
