@@ -1,0 +1,18 @@
+{
+  "main.css": "/app/static/css/main.c5710eef.chunk.css",
+  "main.js": "/app/static/js/main.349eba20.chunk.js",
+  "main.js.map": "/app/static/js/main.349eba20.chunk.js.map",
+  "static/css/1.905a389b.chunk.css": "/app/static/css/1.905a389b.chunk.css",
+  "static/js/1.97d64b66.chunk.js": "/app/static/js/1.97d64b66.chunk.js",
+  "static/js/1.97d64b66.chunk.js.map": "/app/static/js/1.97d64b66.chunk.js.map",
+  "runtime~main.js": "/app/static/js/runtime~main.10256b27.js",
+  "runtime~main.js.map": "/app/static/js/runtime~main.10256b27.js.map",
+  "static/media/voldemort.jpg": "/app/static/media/voldemort.f17ee71f.jpg",
+  "static/media/darkvador.jpg": "/app/static/media/darkvador.6fef9033.jpg",
+  "static/media/thanos.jpg": "/app/static/media/thanos.528a2263.jpg",
+  "static/css/main.c5710eef.chunk.css.map": "/app/static/css/main.c5710eef.chunk.css.map",
+  "static/css/1.905a389b.chunk.css.map": "/app/static/css/1.905a389b.chunk.css.map",
+  "index.html": "/app/index.html",
+  "precache-manifest.8b0afbf6ffeaa5d12f3342b9843401ae.js": "/app/precache-manifest.8b0afbf6ffeaa5d12f3342b9843401ae.js",
+  "service-worker.js": "/app/service-worker.js"
+}
