@@ -14,7 +14,6 @@ export class CandidateList extends React.Component {
                     <div className="row">
                         <div className="col text-center candidate mb-4 px-5">
                             <h2 className="text-uppercase my-1 font-weight-light ">
-                                Dark Vador                                       
                             </h2>
                             <div className="img-block mt-2 mb-2">
                                 <img  src={logo_darkvador} alt="Dark Vador"/>
@@ -27,7 +26,7 @@ export class CandidateList extends React.Component {
                         </div>
                         <div className="col text-center candidate mb-4 px-5">
                         <h2 className=" text-uppercase my-1 font-weight-light">
-                            Thanos                                       
+                                                                   
                         </h2>
                         <div className="img-block mt-2 mb-2">
                             <img  src={logo_thanos} alt="Thanos"/>
@@ -40,7 +39,7 @@ export class CandidateList extends React.Component {
                     </div>
                     <div className="col text-center candidate mb-4 px-5">
                         <h2 className=" text-uppercase my-1 font-weight-light">
-                            Voldemort                                       
+                                                                   
                         </h2>
                         <div className="img-block mt-2 mb-2">
                             <img  src={logo_voldemort} alt="Voldemort"/>
