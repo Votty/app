@@ -267,16 +267,20 @@ export class Admin extends React.Component {
                             </div>
 
                         </div>
-
+             <div id= "image" className="container zindex-modal"> <img 
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Postech_Logotype.svg/2000px-Postech_Logotype.svg.png"
+      alt="new" 
+      />                     </div>
                         {/* Form for voting creation */
                         /* First div is used to blur the whole screen when the candaidate creation pop-up is displayed */}
-                        <div className={(this.state.popup ? "blur-in container zindex-modal" : " container zindex-modal")}>
+                        <div id="text" className={(this.state.popup ? "blur-in container zindex-modal" : " container zindex-modal")}>
 
                             {/* Application Header */}
-                            <a href="#" style={{ textDecoration: "none" }} onClick={this.reset}>
-                                <h1 className="my-4 text-light">
-                                    VOTTY <br /> Blockchain-based voting platform
-                            </h1>
+                                        <a href="#" style={{ textDecoration: "none" }} onClick={this.reset}>
+ 
+                    <h1 className="my-4 text-center">
+                        Blockchain-based voting platform
+                </h1>
                             </a>
                             <hr className="bg-light" />
 
@@ -333,13 +337,20 @@ export class Admin extends React.Component {
             case "manage":
                 return (
                     <div className="App">
-                        <div className="container zindex-modal">
-                            <a href="#" style={{ textDecoration: "none" }} onClick={this.reset}>
-                                <h1 className="my-4 text-light">
-                                    VOTTY <br /> Blockchain-based voting platform
-                            </h1>
-                            </a>
-                            <hr className="bg-light" />
+                    <div id= "image" className="container zindex-modal"> <img 
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Postech_Logotype.svg/2000px-Postech_Logotype.svg.png"
+      alt="new" 
+      />                     </div>
+
+
+      <div id='text' className="container zindex-modal">
+             <a href="#" style={{ textDecoration: "none" }} onClick={this.reset}>
+ 
+                    <h1 className="my-4 text-center">
+                        Blockchain-based voting platform
+                </h1>
+                </a>
+                    <hr className="bg-light" />
                         </div>
                     </div>
                 );
