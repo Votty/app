@@ -1,9 +1,6 @@
 import React from 'react';
 import { CandidateList } from './CandidateList.jsx';
 
-
-
-
 export class Register extends React.Component {
 
     constructor(props) {
@@ -26,6 +23,23 @@ export class Register extends React.Component {
         this.handleHover = this.handleHover.bind(this);
         this.clickOnMail = this.clickOnMail.bind(this);
         this.logOut = this.logOut.bind(this);
+    }
+
+    //call the info API
+    componentDidMount() {
+        fetch("localhost:7049/info?seed=4096b633cad5224ee7d553af2b2300")
+            .then(res => {
+                console.log(res);
+                res.json()}
+            )
+            .then(
+                (result) => {
+                    console.log(result);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            )
     }
 
     updateInputIcon(event) {
@@ -59,19 +73,17 @@ export class Register extends React.Component {
         if (candidatesLoaded) {
             candidates = <CandidateList />;
         }
-        else{
-            candidates = <br/>;
+        else {
+            candidates = <br />;
         }
 
         return (
             <div className="App">
 
                 {/*App title */}
-                <div id= "image" className="container zindex-modal"> <img 
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Postech_Logotype.svg/2000px-Postech_Logotype.svg.png"
-      alt="new" 
-      />                     </div>
-<div id='text' className="container zindex-modal"> 
+                <div id="image" className="container zindex-modal">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Postech_Logotype.svg/2000px-Postech_Logotype.svg.png" alt="new" />                     </div>
+                <div id='text' className="container zindex-modal">
                     <h1 className="my-4 text-center">
                         Blockchain-based voting platform
                 </h1>

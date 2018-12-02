@@ -146,7 +146,7 @@ export class Admin extends React.Component {
         e.preventDefault();
         let temp = this.state.candidates.slice();
         var newCandidate = '{"name": "' + this.state.newCandidate_name + '", "description": "' + this.state.newCandidate_description + '", "image" :"' + this.state.newCandidate_image + '"}';
-        var newCandidate = newCandidate.replace(/\\/g, '\\\\');
+        newCandidate = newCandidate.replace(/\\/g, '\\\\');
         temp.push(JSON.parse(newCandidate));
         this.setState({ candidates: temp });
         this.resetCandidateForm();
@@ -215,7 +215,7 @@ export class Admin extends React.Component {
 
 
       <div id='text' className="container zindex-modal">
-             <a href="#" style={{ textDecoration: "none" }} onClick={this.reset}>
+             <a href="/admin" style={{ textDecoration: "none" }} onClick={this.reset}>
  
                     <h1 className="my-4 text-center">
                         Blockchain-based voting platform
@@ -276,7 +276,7 @@ export class Admin extends React.Component {
                         <div id="text" className={(this.state.popup ? "blur-in container zindex-modal" : " container zindex-modal")}>
 
                             {/* Application Header */}
-                                        <a href="#" style={{ textDecoration: "none" }} onClick={this.reset}>
+                                        <a href="/admin" style={{ textDecoration: "none" }} onClick={this.reset}>
  
                     <h1 className="my-4 text-center">
                         Blockchain-based voting platform
@@ -318,7 +318,7 @@ export class Admin extends React.Component {
                                                         <tr key={index}>
                                                             <td>{index}. </td>
                                                             <td>{candidate.name}</td>
-                                                            <td><a onClick={() => this.removeCandidate(index)}><i className="fa fa-minus"></i></a></td>
+                                                            <td><button onClick={() => this.removeCandidate(index)}><i className="fa fa-minus"></i></button></td>
                                                         </tr>
                                                     )}
                                                 </tbody>
@@ -344,7 +344,7 @@ export class Admin extends React.Component {
 
 
       <div id='text' className="container zindex-modal">
-             <a href="#" style={{ textDecoration: "none" }} onClick={this.reset}>
+             <a href="/admin" style={{ textDecoration: "none" }} onClick={this.reset}>
  
                     <h1 className="my-4 text-center">
                         Blockchain-based voting platform

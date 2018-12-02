@@ -22,7 +22,6 @@ background-repeat: no-repeat;
   position: relative;
 }
 
-/* #endregion */
 
 /*Custom CSS for voting page*/
 
@@ -47,7 +46,7 @@ background-repeat: no-repeat;
     color: #C80051;  
 }
 
-/*Region end*/
+/* #endregion */
 
 /* #region REGISTRATION */
 
@@ -397,9 +396,13 @@ fieldset{
   padding-right: 10px;
 }
 
-#candidateList td a{
+#candidateList td button{
   padding-right: 10px;
   cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  background-color: transparent;
+  border-style: none;
 }
 
 .add-candidate{
