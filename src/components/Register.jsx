@@ -7,39 +7,13 @@ export class Register extends React.Component {
         super(props);
         this.state = {
             userId: '',
-            session: localStorage.getItem('session'), // if logged this will contail the userId email
-            voted: localStorage.getItem('voted'), // user voted or not
-            votedFor: localStorage.getItem('votedFor'), // candidate voted for
-            loaded: true,
             emptyInput: true,
-            isHovered: false,
-            clickOnMail: false,
-            accountCreated: false,
-            loadCandidateList: false,
-            isDone: false,
+            logIn: false,
         };
 
         this.updateInputIcon = this.updateInputIcon.bind(this);
-        this.handleHover = this.handleHover.bind(this);
-        this.clickOnMail = this.clickOnMail.bind(this);
+        this.logIn = this.logIn.bind(this);
         this.logOut = this.logOut.bind(this);
-    }
-
-    //call the info API
-    componentDidMount() {
-        fetch("localhost:7049/info?seed=4096b633cad5224ee7d553af2b2300")
-            .then(res => {
-                console.log(res);
-                res.json()}
-            )
-            .then(
-                (result) => {
-                    console.log(result);
-                },
-                (error) => {
-                    console.log(error);
-                }
-            )
     }
 
     updateInputIcon(event) {
@@ -48,34 +22,25 @@ export class Register extends React.Component {
         )
     }
 
-    handleHover() {
-        this.setState(prevState => ({ isHovered: !prevState.isHovered }))
-    }
-
-    clickOnMail(event) {
-        this.setState({ clickOnMail: true, accountCreated: true, loadCandidateList: true, emptyInput: true })
+    logIn() {
+        this.setState({ logIn: true, emptyInput: true })
         document.getElementById("form").reset();
     }
 
     logOut() {
-        this.setState({ clickOnMail: false, accountCreated: false, loadCandidateList: false, emptyInput: true });
+        this.setState({ logIn: false, emptyInput: true });
     }
 
     render() {
-        const text1 = !this.state.clickOnMail ? "Login" : "Logout";
-        const text2 = !this.state.clickOnMail ? "Please enter your ID to access the ballot" : "Please quit if this ID is not yours";
-        const logged = "logged as " + this.state.userId + " !";
-        const btnStyle = this.state.isHovered ? { cursor: 'pointer' } : {};
-        const candidatesLoaded = this.state.loadCandidateList;
-        let candidates;
 
-        //Display Candidate list only if the user is logged
-        if (candidatesLoaded) {
-            candidates = <CandidateList />;
-        }
-        else {
-            candidates = <br />;
-        }
+        //Content of the registration panel 
+        const registrationTitle = !this.state.logIn ? "Login" : "Logout";
+        const registrationSubtitle = !this.state.logIn ? "Please enter your ID to access the ballot" : "Please quit if this ID is not yours";
+        const logged = "logged as " + this.state.userId + " !";
+
+        //Display Candidate list only if the user is logged and candidates information are set
+        let candidates;
+        (this.state.logIn) ? candidates = <CandidateList candidates={this.state.candidates} /> : candidates = <br />;
 
         return (
             <div className="App">
@@ -90,28 +55,34 @@ export class Register extends React.Component {
                     <hr className="bg-light" />
 
                     <div>
+
+
+                        {/*Display candidates list if a user is logged*/}
+                        {candidates}
+
+
                         <div id="registration-form" className="py-3">
                             <div>
-                                <h1>{text1}</h1>
-                                <p>{text2}</p>
+                                <h1>{registrationTitle}</h1>
+                                <p>{registrationSubtitle}</p>
                             </div>
                             <form id="form">
 
                                 {/* Input field to log in*/}
-                                <div className={this.state.clickOnMail ? 'input-section email-section fold-up' : 'input-section email-section'}  >
+                                <div className={this.state.logIn ? 'input-section email-section fold-up' : 'input-section email-section'}  >
                                     <input className="email" onChange={this.updateInputIcon} type="email" placeholder="ENTER YOUR ID HERE" autoComplete="off" />
                                     <div className="animated-button">
                                         <span className={this.state.emptyInput ? 'icon-paper-plane' : 'icon-paper-plane next'}>
                                             <i className="fa fa-envelope-o" />
                                         </span>
-                                        <span className="next-button email" style={btnStyle} onMouseEnter={this.handleHover} onMouseLeave={this.handleHover} onClick={this.clickOnMail}>
+                                        <span className="next-button email" onClick={this.logIn}>
                                             <i className="fa fa-arrow-up"></i>
                                         </span>
                                     </div>
                                 </div>
 
-                                {/* Input field once logged */}
-                                <div className={this.state.clickOnMail ? "input-section password-section folded" : "input-section password-section fold-up"} >
+                                {/* Input field to log out */}
+                                <div className={this.state.logIn ? "input-section password-section folded" : "input-section password-section fold-up"} >
                                     <input className="password" type="text" placeholder={logged.toUpperCase()} />
                                     <div className="animated-button">
                                         <span className="icon-cross" onClick={this.logOut} >
@@ -122,11 +93,10 @@ export class Register extends React.Component {
 
                             </form>
                         </div>
-                        {candidates}
+
                     </div>
                 </div>
             </div>
         );
     }
 }
-

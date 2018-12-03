@@ -162,6 +162,11 @@ background-repeat: no-repeat;
   width: 100%;
   border: 0;
 }
+
+.animated-button .next-button:hover{
+  cursor: pointer;
+}
+
 .next {
   margin-top: -75px;
 }
@@ -211,8 +216,7 @@ background-repeat: no-repeat;
   padding-top: 13px;
 }
 
-.img-block img{
-  background-color: #fff;
+.img-block img, .img-block i {
   overflow: hidden;
   width: 220px;
   height: 220px;
@@ -224,6 +228,18 @@ background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
 }
+
+.img-block img {
+  background-color: #fff;
+}
+
+.img-block i {
+  background-color: #dadaf1;
+  font-size: 110px;
+  padding: 0.35em;
+  color: aliceblue;
+}
+
 .img-block .hover{
   position: absolute;
   width: 100%;
@@ -711,7 +727,25 @@ fieldset{
 
 /* #endregion */
 
+/* #region COUNTDOWN */
+.Countdown{
+  margin: 10px auto;
+  padding-bottom: 20px;
+}
 
+.Countdown-col{
+  display: inline-block;
+}
 
+.Countdown-col-element{
+  display: inline-block;
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+}
 
+.Countdown-col-element strong{
+  font-size: 50px;
+}
 
+/* #endregion */
