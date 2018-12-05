@@ -1,5 +1,6 @@
 import React from 'react';
 import { CandidateList } from './CandidateList.jsx';
+import logo from '../imgs/Selection_009.png';
 
 export class Register extends React.Component {
 
@@ -44,15 +45,18 @@ export class Register extends React.Component {
 
         return (
             <div className="App">
-
+            <div id="fork"><a href="https://github.com/Votty/" target="_Blank">
+<img src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"/> </a></div>
                 {/*App title */}
                 <div id="image" className="container zindex-modal">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Postech_Logotype.svg/2000px-Postech_Logotype.svg.png" alt="new" />                     </div>
+                    <img src={logo} alt="new" />                     </div>
                 <div id='text' className="container zindex-modal">
                     <h1 className="my-4 text-center">
-                        Blockchain-based voting platform
+                        Hyperledger voting
                 </h1>
                     <hr className="bg-light" />
+                    <h2> Take a look at a interactive demo on Hyperledger Voting that you can 
+                    set up yourself</h2>
 
                     <div>
 
@@ -93,7 +97,17 @@ export class Register extends React.Component {
 
                             </form>
                         </div>
-
+<footer id="footer" className="my-4 text-center" >
+        <ul class="icons" >
+          
+          
+          <li><a href="https://github.com/Votty/home" class="icon fa-github"><span class="label">GitHub</span></a></li>
+          <li><a href="mailto:support@votty.net" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+        </ul>
+        <ul class="copyright">
+          <li>&copy; Creative Commons</li><li>Votty</li>
+        </ul>
+      </footer>
                     </div>
                 </div>
             </div>
