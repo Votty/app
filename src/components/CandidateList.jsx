@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Countdown from './Countdown.jsx';
 import defaultUser from './img/default_candidate.jpeg';
 import $ from 'jquery';

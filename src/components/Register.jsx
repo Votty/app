@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../imgs/Selection_009.png';
+import logo from '../imgs/logo.png';
 import Countdown from './Countdown.jsx';
 import defaultUser from './img/default_candidate.jpeg';
 import $ from 'jquery';
@@ -373,13 +373,13 @@ export class Register extends React.Component {
                     </h2>
 
                     {/*Notification displayed when a  user is logged*/}
-                    <div className={(this.state.warning) ? "alert alert-success" : "d-none"} style={{backgroundColor :'ghostwhite'}} role="alert">
+                    <div className={(this.state.warning) ? "alert alert-primary" : "d-none"} style={{backgroundColor :'ghostwhite'}} role="alert">
                         <button type="button" onClick={this.setWarning} className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <strong>Warning!</strong> Once your browser is closed, you can't access the voting <br />
                     </div>
 
                     {/*Display voting information and candidates list if a user is logged*/}
-                    <div className={(this.state.step === 3) ? '' : 'd-none'}>
+                    <div id='votingpage' className={(this.state.step === 3) ? '' : 'd-none'}>
 
                         {/*Voting information*/}
                         <h1 className="text-center">{this.state.title}</h1>
@@ -391,7 +391,7 @@ export class Register extends React.Component {
                         <p className="text-center">Votes count : {this.state.voteCount}</p>
 
                         {/*Candidate list*/}
-                        <div className="candidates-list">
+                        <div id='canditatelist' className="candidates-list">
                             <div className="loadContent">
                                 <div className="container">
                                     <div className="row">

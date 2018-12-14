@@ -1,4 +1,6 @@
 import React from 'react';
+import logo from '../imgs/logo.png';
+
 import TimePicker from 'react-bootstrap-time-picker';
 const server = "http://d1.init.votty.net:7049";
 
@@ -272,20 +274,21 @@ export class Admin extends React.Component {
             case "selection":
                 return (
                     <div className="App">
-                        <div id="image" className="container zindex-modal"> <img
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Postech_Logotype.svg/2000px-Postech_Logotype.svg.png"
-                            alt="new"
-                        />                     </div>
+   <div id="image" className="container zindex-modal">
+                    <img src={logo} alt="new" />
+                </div>
 
                         <div id='text' className="container zindex-modal">
-                            <a href="/admin" style={{ textDecoration: "none" }} onClick={this.reset}>
 
-                                <h1 className="my-4 text-center">
-                                    Blockchain-based voting platform
-                </h1>
-                            </a>
-                            <hr className="bg-light" />
+                    {/** Subtitle*/}
+                    <h1 className="my-4 text-center">
+                        Hyperledger voting
+                    </h1>
+                    <hr className="bg-light" />
 
+                    <h2>
+                        Take a look at a interactive demo on Hyperledger Voting that you can set up yourself
+                    </h2>
 
 
                             {/*Notification displayed when a voting is created*/}

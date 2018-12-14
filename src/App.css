@@ -2,10 +2,36 @@
 
 body{
   background-image: url("https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/itCjTBE/grey-light-smooth-moving-waves-background-video-animation-hd-1920x1080_vjkea4zve__F0000.png");
-}
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;}
 
 body, html {
   height: 100%;
+}
+
+#canditatelist h2{
+	color: #999999;
+
+}
+#votingpage{
+	background-image: url("https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/GfRLKaE/videoblocks-clean-grey-background-motion_bujzrrdsz_thumbnail-full01.png");
+	background-size: 100% 98%;
+	/*background-color: #999999;*/
+	padding-bottom: 2em;
+	margin-bottom: 9em;
+}
+
+#votingpage p{
+	font-size: 25px;
+	font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    line-height: 2.5rem;
+    /*color: #76879b;*/
+    text-transform: uppercase;
+    letter-spacing: .1em;
+		
 }
 
 #fork {
@@ -17,11 +43,11 @@ body, html {
 
 /*first div which cover all the screen*/
 .overlay {
-  position: absolute;
+  /*position: absolute;
   width: 100%;
   height: 100%;
-  top: 0;
-  right: 0;
+  top: 0;*/
+  /*right: 0;*/
 
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -93,7 +119,7 @@ ul.icons li .icon:before {
 }
 
 ul.icons li a {
-  color: #000000;
+  color: #004B9E;
 }
 
 .icon {
@@ -275,15 +301,16 @@ ul.icons li a {
 
 #registration-form form input[type="email"]{
   background-color: #dadaf1;
-  color: #000000;
+  color: #FFFFFF;
   font-weight: 100;
 }
 
 #registration-form form input:focus {
   outline: none;
 }
+/*here for changing color for input placeholder*/
 #registration-form form input::placeholder {
-  color: #004B9E;
+  color: #999999; 
   font-weight: 100;
 }
 .animated-button {
@@ -303,11 +330,11 @@ ul.icons li a {
 }
 .animated-button span i {
   font-size: 35px;
-  color: #000000;
+  color: #FFFFFF;
 }
 .animated-button .next-button {
   background: transparent;
-  color: #000000;
+  color: #999999;
   font-weight: 100;
   width: 100%;
   border: 0;
@@ -409,8 +436,8 @@ ul.icons li a {
 
 #Selection button {
   /*change the colors of the buttons*/
-  background: #3BB9FF;
-  border: 3px solid #3BB9FF; 
+  background: #999999;
+  border: 3px solid #999999; 
   border-radius: 5px;
   color: #fff;
   display: block;
@@ -510,7 +537,7 @@ fieldset{
 }
 
 .form-wrapper > .section > .button, .form-wrapper .submit{
-  background-color: rgb(198, 16, 101);;
+  background-color: #999999;
   display: inline-block;
   padding: 8px 30px;
   color: #fff;
@@ -519,6 +546,7 @@ fieldset{
   position: absolute;
   right: 20px;
   bottom: 20px;
+
 }
 
 .form-wrapper input[type="text"], .form-wrapper input[type="date"], .form-control,
@@ -532,6 +560,7 @@ fieldset{
   outline: none;
   font-size: 14px !important;
   border: 1px solid #ced4da;
+  text-align: center;
   border-radius: .25rem;
 }
 /* #endregion */
@@ -541,7 +570,7 @@ fieldset{
 .reset {
   cursor: pointer;
   position: absolute;
-  background-color: rgb(198, 16, 101);
+  background-color: #999999;
   left: 20px;
   bottom: 20px;
   border: 2px solid #fff;
@@ -554,9 +583,11 @@ fieldset{
 #candidateList{
   margin: auto;
   margin-bottom: 15px;
+  text-align: center;
 }
 #candidateList td:last-child{
   color: rgb(198, 16, 101);
+
 }
 
 #candidateList td{
@@ -575,7 +606,7 @@ fieldset{
 .add-candidate{
     height: 40px;
     width: 40px;
-    background: rgb(198, 16, 101);;
+    background-color: #999999;
     border-radius: 50%;
     color: #fff;
     -webkit-box-pack: center;
@@ -649,7 +680,7 @@ fieldset{
   margin-top: -10px;
   border-radius: 50%;
   border: 2px solid #fff;
-  color: #fff !important;
+  background-color: #999999;
   -webkit-box-shadow: -4px -2px 6px 0px rgba(0,0,0,0.1);
   -moz-box-shadow: -4px -2px 6px 0px rgba(0,0,0,0.1);
   box-shadow: -3px 1px 6px 0px rgba(0,0,0,0.1);
@@ -659,8 +690,8 @@ fieldset{
 }
 
 .pop-up .close-button:hover {
-  background-color: rgba(150, 16, 120, 1);
-  color: #fff !important;
+  background-color: #999999;
+  /*color: #fff !important;*/
 }
 
 .pop-up h3 {
@@ -668,7 +699,7 @@ fieldset{
   padding-top: 15px;
   padding-bottom: 15px;
   color: #fff;
-  background-color: rgb(198, 16, 101);;
+  background-color: #999999;
   font-size: 25px;
 }
 
@@ -711,7 +742,7 @@ fieldset{
   border-color: #007095;
   color: white;
   transition: background-color 300ms ease-out;
-  background-color: rgb(198, 16, 101);;
+  background-color: #999999;
   display: inline-block;
   color: #fff;
   cursor: pointer;
