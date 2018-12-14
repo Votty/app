@@ -1040,7 +1040,18 @@ fieldset{
 
 /* #endregion */
 
+/* #region */
 
+#voterList button{
+  padding-right: 10px;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  background-color: transparent;
+  border-style: none;
+}
+
+/* #endregion */
 
 
 

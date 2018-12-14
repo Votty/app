@@ -135,13 +135,23 @@ export class Register extends React.Component {
 
     updateInputIcon(event) { //set the userID and check if the field is empty or not
         this.setState(
-            { emptyInput: (!event.target.value > 0) ? true : false, userId: event.target.value }
+            { emptyInput: (!event.target.value > 0) ? true : false}
         )
+        if (this.state.step === 1){ //edit the right variable depending on the step
+            this.setState({userId: event.target.value })
+        }
+        else {
+            this.setState({authentication_code : event.target.value})
+        }
     }
 
     setAuthenticationField(event) {
         $("#inputField").val(""); //Clean the field 
-        var session_key;
+        var _this = this;
+
+        console.log('try parameters : \n');
+        console.log('mail address : ' + this.state.userId);
+        console.log('seed : ' + seed);
 
         fetch(server + '/try', { //Request the server to receive an authentication code by email
             method: 'PUT',
@@ -156,15 +166,15 @@ export class Register extends React.Component {
         .then(response => response.json())
         .then(function(response){
 
-            //Put the session in the cookies and in the state
-            cookies.set('session_key',response);
-            session_key = response;
-            console.log(cookies.get('session_key'));
+            //Put the session key in the cookies and in the state
+            var session_key = JSON.parse(response);
+            console.log("response from try request : \n");
+            console.log("authentication code : " + session_key.answer)
+            console.log("session key : " + session_key.session)
+            cookies.set('session_key',session_key.session);
+            _this.setState({ session_key : session_key.session });
         })
-
-        // set session_key 
-        this.setState({session_key : session_key});
-
+        
         //Put this in the callback of the fetch
         this.setState({ step: 2, emptyInput: true });
     }
@@ -172,10 +182,11 @@ export class Register extends React.Component {
     logIn(e) {
         //Set the authentication code variable with the value filled in
         this.setState({ step: 3, emptyInput: true, authentication_code: e.target.value, warning: true })
-        console.log(this.state.userId);
-        console.log(seed);
-        console.log(this.state.authentication_code);
-        console.log(this.state.session_key);
+        console.log("Verify parameters : \n")
+        console.log("mail : " + this.state.userId);
+        console.log("seed : " + seed);
+        console.log("authentication code : " + this.state.authentication_code);
+        console.log("session key : " + this.state.session_key);
 
         fetch(server + '/verify', { //Send a request to verify the authentication code and the session key 
             method: 'PUT',
@@ -191,6 +202,7 @@ export class Register extends React.Component {
         })
             .then(response => response.json())
             .then((response) => { //callback function to get the public key which is used to send the vote
+                console.log("respond from verify function : " + response);
                 this.setState({ public_key: response })
             })
         document.getElementById("form").reset();
@@ -217,7 +229,6 @@ export class Register extends React.Component {
     setCandidates() {
         var html = [];
         var candidates = this.state.candidates;
-        console.log(candidates);
         candidates.forEach(candidate => {
             const id = candidate.id;
             var currentCandidate = [];
@@ -284,8 +295,6 @@ export class Register extends React.Component {
         $("#fork").addClass('blur-in');
 
         this.setState({ popup: true, selected_candidate: candidate_id });
-        console.log(this.state.selected_candidate);
-
     }
 
     //close popup
@@ -298,6 +307,9 @@ export class Register extends React.Component {
 
     //confirm the vote 
     confirmVote() {
+        console.log("request parameters : ");
+        console.log("public key : " + this.state.public_key )
+        console.log("selected candidate : " + this.state.selected_candidate )
         fetch(server + '/vote', {
             method: 'PUT',
             headers: {
@@ -308,7 +320,8 @@ export class Register extends React.Component {
                 this.state.selected_candidate
             ])
         })
-            .then(response => response.json());
+            .then(response => response.json())
+            .then(response => console.log(response));
 
         this.closePopup();
     }
@@ -379,7 +392,7 @@ export class Register extends React.Component {
                     </div>
 
                     {/*Display voting information and candidates list if a user is logged*/}
-                    <div id='votingpage' className={(this.state.step === 3) ? '' : 'd-none'}>
+                    <div id="votingpage" className={(this.state.step === 3) ? '' : 'd-none'}>
 
                         {/*Voting information*/}
                         <h1 className="text-center">{this.state.title}</h1>
@@ -404,7 +417,7 @@ export class Register extends React.Component {
                     </div>
 
                     {/** Logging Box */}
-                    <div id="registration-form" className="py-3">
+                    <div id="registration-form" className= {this.state.step === 3? "d-none" : "py-3"}>
                         <div>
                             <h1>{registrationTitle}</h1>
                             <p>{registrationSubtitle}</p>

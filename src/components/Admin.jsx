@@ -1,8 +1,17 @@
 import React from 'react';
+import TimePicker from 'react-bootstrap-time-picker';
+import Countdown from './Countdown.jsx';
+import defaultUser from './img/default_candidate.jpeg';
 import logo from '../imgs/logo.png';
 
-import TimePicker from 'react-bootstrap-time-picker';
+//server address
 const server = "http://d1.init.votty.net:7049";
+
+//Get the voting seed
+//const votingURL = new URLSearchParams(window.location.search);
+//const seed = votingURL.get('seed');
+const seed = "i6dzmdi6z17gt788xy5rniib19ss1batf53k85tg0os3n9g1droyw6e9y12pltdfvwa4w1r4b37sqtd38gwj31zi6crbpp14u3a3izdw3x7grl5sduu43fw1ysivnhwftmy2gndw6nyq18v2nv7jvn13gd3w30kbfrulk3szvf60najo0e17cipoz83wl97bxzjtf2g0m0wtbcnpq8ls27qx838multpb4x00avd71ddzkwauye10d6koy14he71";
+
 
 export class Admin extends React.Component {
 
@@ -44,7 +53,19 @@ export class Admin extends React.Component {
 
             //notify the user when the voting has been created
             success: false,
-            participation_link: ''
+            participation_link: '',
+
+            //Voting infos
+            voting_title: "",
+            voting_description: "",
+            docType: "",
+            start: "", //millisecond unix timestamp
+            end: "", //millisecond unix timestamp
+            permitLiveRate: "",
+            participantsCount: 0,
+            voteCount: 0,
+            voteRate: "", //[0,1]
+            result: [],
         };
 
         //Set the mode and the step
@@ -85,6 +106,12 @@ export class Admin extends React.Component {
         this.resetCandidateForm = this.resetCandidateForm.bind(this); //reset the candidate form 
         this.resetStep3 = this.resetStep3.bind(this); //reset Step 2
         this.resetStep1 = this.resetStep1.bind(this); //reset Step 1
+
+        //Voting information and candidates list
+        this.setDate = this.setDate.bind(this);
+        this.setCandidates = this.setCandidates.bind(this);
+        this.getVotingInfo = this.getVotingInfo.bind(this);
+
     }
 
     setMode(e) {
@@ -128,9 +155,7 @@ export class Admin extends React.Component {
     createNewVoter(e) {
         e.preventDefault();
         let temp = this.state.voters.slice();
-        //var newVoter = '{"id": "' + this.state.new_voter + '"}';
         var newVoter = this.state.new_voter;
-        //temp.push(JSON.parse(newVoter));
         temp.push(newVoter);
         this.setState({ voters: temp });
 
@@ -180,9 +205,10 @@ export class Admin extends React.Component {
     addNewCandidate(e) {
         e.preventDefault();
         let temp = this.state.candidates.slice();
+        console.log(temp);
         var newCandidate = '["' + this.state.newCandidate_name + '","' + this.state.newCandidate_description + '","' + this.state.newCandidate_image + '"]';
         newCandidate = newCandidate.replace(/\\/g, '\\\\');
-        //temp.push(JSON.parse(newCandidate));
+        newCandidate = JSON.parse(newCandidate);
         temp.push(newCandidate);
         this.setState({ candidates: temp });
         this.resetCandidateForm();
@@ -198,10 +224,17 @@ export class Admin extends React.Component {
         var startTime = this.state.startTime * 1000;
         var endTime = this.state.endTime * 1000;
 
+        console.log('parameters for create : \n');
+        console.log('title : ' + this.state.title);
+        console.log('description : ' + this.state.description);
+        console.log('starting timestamp (ms) : ' + startingDay + startTime);
+        console.log('ending timestamp (ms) : ' + endingDay + endTime);
+        console.log('candidates : ' + this.state.candidates);
+        console.log('voters : ' + this.state.voters);
+
         fetch(server + '/create', {
-            method: 'POST',
+            method: 'PUT',
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify([
@@ -217,7 +250,7 @@ export class Admin extends React.Component {
             .then((res) => { //callback function to get seed
                 this.setState({ participation_link: res })
             })
-            
+
         this.setSuccess();
     }
 
@@ -266,7 +299,112 @@ export class Admin extends React.Component {
         this.setState({ popup: false, newCandidate_description: "Enter here a short description...", newCandidate_image: '', newCandidate_name: 'Name' });
     }
 
+    //For the Manage section
+
+    //get the information of the current voting session
+    getVotingInfo() { //Trigger the request once the page is loaded
+        const api = "/info?"; //call the /info function to fetch the data
+        fetch(server + api + "seed=" + seed)
+            .then(res => {
+                return res.json() //parse result into json file
+            }
+            )
+            .then(
+                (result) => {
+                    var info = result.data;
+                    this.setState( //Put the information on the state
+                        {
+                            candidates: info.candidates,
+                            voting_title: info.title,
+                            voting_description: info.description,
+                            docType: info.docType,
+                            start: info.start,
+                            end: info.end,
+                            permitLiveRate: info.permitLiveRate,
+                            participantsCount: info.ptcpCount,
+                            voteCount: info.votedCount,
+                            voteRate: info.rate,
+                            result: info.result,
+                            loaded: true
+                        }
+                    )
+                },
+                (error) => {
+                    console.log(error);
+                }
+            )
+    }
+
+    //Set date to display starting and ending day
+    setDate() {
+        var date = new Date(this.state.end);
+        var year = date.getFullYear();
+        var month = this.addLeadingZeros(date.getMonth() + 1);
+        var day = this.addLeadingZeros(date.getDate());
+        var hours = this.addLeadingZeros(date.getHours());
+        var min = this.addLeadingZeros(date.getMinutes());
+        var sec = this.addLeadingZeros(date.getSeconds());
+        var iso = year + "-" + month + "-" + day + "T" + hours + ":" + min + ":" + sec;
+        return iso;
+    }
+
+    //Used to set date format 
+    addLeadingZeros(value) {
+        if (value < 10) {
+            value = '0' + value;
+        }
+        return value;
+    }
+
+    setDateFormat(date) {
+        //Set date format MM/DD
+        var options = { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', timezone: 'Asia/Seoul' };
+        const dateFormat = new Intl.DateTimeFormat('en-US', options);
+        return dateFormat.format(date);
+    }
+
+    //Set candidates list 
+    setCandidates() {
+        var html = [];
+        var candidates = this.state.candidates;
+        candidates.forEach(candidate => {
+            const id = candidate.id;
+            var currentCandidate = [];
+            var img = [];
+            var name = [];
+            var desc = [];
+
+            //set name
+            name.push(<h2 key={candidate.id} className="text-uppercase my-1 font-weight-light ">{candidate.name} ({this.state.result[id]})</h2>);
+
+            //set img
+            if (candidate.media === "") {
+                img.push(<figure key={candidate.id} id={candidate.id} className="snip1566"  ><img src={defaultUser} alt="sq-sample14" /><figcaption><i className="ion-checkmark"></i>{/*<a href="#"></a>*/}</figcaption></figure>);
+            }
+            else {
+                img.push(<figure key={candidate.id} id={candidate.id} className="snip1566" ><img src={candidate.media} alt="sq-sample14" /><figcaption><i className="ion-checkmark"></i>{/*<a href="#"></a>*/}</figcaption></figure>);
+            }
+
+            //set description
+            desc.push(<p key={candidate.id} className=" my-1 font-weight-light ">{candidate.short}</p>)
+
+            currentCandidate.push(<div key={candidate.id} className="col text-center candidate mb-4 px-5">{name}{img}{desc}</div>);
+
+            //add candidate to candidates
+            html.push(currentCandidate);
+        });
+        return html;
+    }
+
+
     render() {
+
+        //Display Candidate list and voting information only if the user is logged
+        let candidates = this.setCandidates();
+
+        //set countdown
+        var now = new Date();
+        var countdown = (this.state.end !== "" && now < this.state.end) ? <Countdown date={this.setDate()} /> : <br />;
 
         switch (this.state.mode) {
 
@@ -274,21 +412,19 @@ export class Admin extends React.Component {
             case "selection":
                 return (
                     <div className="App">
-   <div id="image" className="container zindex-modal">
-                    <img src={logo} alt="new" />
-                </div>
+                        <div id="image" className="container zindex-modal">
+                            <img src={logo} alt="new" />
+                        </div>
 
                         <div id='text' className="container zindex-modal">
+                            <a href="/admin" style={{ textDecoration: "none" }} onClick={this.reset}>
 
-                    {/** Subtitle*/}
-                    <h1 className="my-4 text-center">
-                        Hyperledger voting
-                    </h1>
-                    <hr className="bg-light" />
+                                <h1 className="my-4 text-center">
+                                    Blockchain-based voting platform
+                </h1>
+                            </a>
+                            <hr className="bg-light" />
 
-                    <h2>
-                        Take a look at a interactive demo on Hyperledger Voting that you can set up yourself
-                    </h2>
 
 
                             {/*Notification displayed when a voting is created*/}
@@ -406,7 +542,7 @@ export class Admin extends React.Component {
                                                     {this.state.candidates.map((candidate, index) =>
                                                         <tr key={index}>
                                                             <td>{index}. </td>
-                                                            <td>{JSON.parse(candidate)[0]}</td>
+                                                            <td>{candidate[0]}</td>
                                                             <td><button onClick={() => this.removeCandidate(index)}><i className="fa fa-minus"></i></button></td>
                                                         </tr>
                                                     )}
@@ -424,6 +560,7 @@ export class Admin extends React.Component {
                     </div>
                 );
             case "manage":
+                this.getVotingInfo(); 
                 return (
                     <div className="App">
                         <div id="image" className="container zindex-modal"> <img
@@ -433,12 +570,28 @@ export class Admin extends React.Component {
 
                         <div id='text' className="container zindex-modal">
                             <a href="/admin" style={{ textDecoration: "none" }} onClick={this.reset}>
+
+                                {/** Subtitle */}
                                 <h1 className="my-4 text-center">
-                                    Blockchain-based voting platform
+                                    Hyperledger voting
                                 </h1>
                             </a>
                             <hr className="bg-light" />
+
+                            <h2>
+                                Take a look at a interactive demo on Hyperledger Voting that you can set up yourself
+                            </h2>
+
                         </div>
+                        {/*Voting information*/}
+                        <h1 className="text-center">{this.state.voting_title}</h1>
+                        <p className="text-center">{this.state.voting_description}</p>
+                        <p className="text-center">{this.setDateFormat(this.state.start)} - {this.setDateFormat(this.state.end)}</p>
+                        <div className="text-center">{countdown}</div>
+                        <p className="text-center">Vote rate : {this.state.voteRate}</p>
+                        <p className="text-center">Number of participant : {this.state.participantsCount}</p>
+                        <p className="text-center">Votes count : {this.state.voteCount}</p>
+                        {candidates}
                     </div>
                 );
             default:
