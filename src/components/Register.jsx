@@ -29,7 +29,7 @@ export class Register extends React.Component {
             warning : false, //Print the warning message once the user is logged
 
             //session key from cookie
-            session_key: cookies.get('session_key'),
+            session_key: '',
 
             //popup
             popup: false,
@@ -141,6 +141,7 @@ export class Register extends React.Component {
 
     setAuthenticationField(event) {
         $("#inputField").val(""); //Clean the field 
+        var session_key;
 
         fetch(server + '/try', { //Request the server to receive an authentication code by email
             method: 'PUT',
@@ -157,9 +158,12 @@ export class Register extends React.Component {
 
             //Put the session in the cookies and in the state
             cookies.set('session_key',response);
-            this.setState({'session_key' : response});
+            session_key = response;
             console.log(cookies.get('session_key'));
         })
+
+        // set session_key 
+        this.setState({session_key : session_key});
 
         //Put this in the callback of the fetch
         this.setState({ step: 2, emptyInput: true });
