@@ -1,8 +1,9 @@
 import React from 'react';
 import Countdown from './Countdown.jsx';
-const server = "http://d1.init.votty.net:7049";
+import defaultUser from './img/default_candidate.jpeg';
+import $ from 'jquery';
+//const server = "http://d1.init.votty.net:7049";
 
-//Used to display the candidate list
 
 export class CandidateList extends React.Component {
 
@@ -10,6 +11,9 @@ export class CandidateList extends React.Component {
         super(props);
 
         this.state = {
+            //popup
+            popup: false,
+
             //Voting infos
             candidates: [],
             title: "",
@@ -26,10 +30,12 @@ export class CandidateList extends React.Component {
 
         this.setDate = this.setDate.bind(this);
         this.setCandidates = this.setCandidates.bind(this);
+        this.vote = this.vote.bind(this);
+        this.closePopup = this.closePopup.bind(this);
     }
 
     //call the info API
-    componentDidMount() {
+    /*componentDidMount() {
         const api = "/info?";
         const votingId = "4096b633cad5224ee7d553af2b2300";
         fetch(server + api + "seed=" + votingId)
@@ -62,7 +68,7 @@ export class CandidateList extends React.Component {
                     console.log(error);
                 }
             )
-    }
+    }*/
 
     setCandidates() {
         var html = [];
@@ -75,7 +81,7 @@ export class CandidateList extends React.Component {
             var desc = [];
 
             //set name
-        name.push(<h2 key={candidate.id} className="text-uppercase my-1 font-weight-light ">{candidate.name} ({this.state.result[id]})</h2>);
+            name.push(<h2 key={candidate.id} className="text-uppercase my-1 font-weight-light ">{candidate.name} ({this.state.result[id]})</h2>);
 
             //set img
             if (candidate.media === "") {
@@ -123,16 +129,34 @@ export class CandidateList extends React.Component {
         return dateFormat.format(date);
     }
 
+
+    //Vote for a candidate
+    vote(e) {
+        e.preventDefault();
+        $("#text").addClass('blur-in');
+        $(".pop-up").removeClass('d-none');
+        this.setState({ popup: true })
+    }
+
+    //close popup
+    closePopup() {
+        $("#text").removeClass('blur-in');        
+        $(".pop-up").addClass('d-none');        
+        this.setState({ popup: false });
+    }
+
     render() {
         //Set candidates list
         var candidates = this.setCandidates();
-    
+
         //set countdown
         var now = new Date();
         var countdown = (this.state.end !== "" && now < this.state.end) ? <Countdown date={this.setDate()} /> : <br />;
 
         return (
             <div>
+
+
                 {/*Voting information*/}
                 <h1 className="text-center">{this.state.title}</h1>
                 <p className="text-center">{this.state.description}</p>
@@ -148,6 +172,15 @@ export class CandidateList extends React.Component {
                         <div className="container">
                             <div className="row">
                                 {candidates}
+                                <div className="col text-center candidate mb-4 px-5">
+                                    <h2 className="text-uppercase my-1 font-weight-light ">Madis (5)</h2>
+                                    <figure className="snip1566" onClick={this.vote}>
+                                        <img src={defaultUser} alt="sq-sample14" />
+                                        <figcaption><i className="ion-checkmark"></i></figcaption>
+                                        <a href="#"></a>
+                                    </figure>
+                                    <p className=" my-1 font-weight-light ">Here is a short description</p>
+                                </div>
                             </div>
                         </div>
                     </div>
