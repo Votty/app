@@ -40,8 +40,8 @@ export class Admin extends React.Component {
             step: 1,
 
             //Step 1 
-            title: 'Title',
-            description: 'Description',
+            title: '',
+            description: '',
             startingDay: date,
             endingDay: date,
             endTime: 36000,
@@ -49,16 +49,16 @@ export class Admin extends React.Component {
 
             //Step 2
             voters: [],
-            new_voter: 'Enter new voter mail address',
+            new_voter: '',
 
             //Step 3
             candidates: [],
 
             //popup for candidate creation
             popup: false,
-            newCandidate_description: 'Enter here a short description...',
+            newCandidate_description: '',
             newCandidate_image: '',
-            newCandidate_name: 'Name',
+            newCandidate_name: '',
 
             //notify the user when the voting has been created
             success: false,
@@ -200,6 +200,7 @@ export class Admin extends React.Component {
     }
 
     setImage(e) {
+        console.log(e.target);
         this.setState({ newCandidate_image: e.target.value });
     }
 
@@ -467,8 +468,8 @@ export class Admin extends React.Component {
                                 <h3>New candidate</h3>
                                 <form >
                                     <fieldset className="section is-active">
-                                        <input type="text" name="Name" id="Name" value={this.state.newCandidate_name} onChange={this.setName} />
-                                        <textarea name="Description" cols="40" rows="5" value={this.state.newCandidate_description} onChange={this.setDescription}></textarea>
+                                        <input type="text" name="Name" id="Name" placeholder="Name" value={this.state.newCandidate_name} onChange={this.setName} />
+                                        <textarea name="Description" cols="40" rows="5" placeholder="Enter here a short description..." value={this.state.newCandidate_description} onChange={this.setDescription}></textarea>
                                         <div className="custom-file-upload">
                                             <input type="file" id="image" name="image" value={this.state.newCandidate_image} onChange={this.setImage} />
                                         </div>
@@ -513,8 +514,8 @@ export class Admin extends React.Component {
                                         {/* Step 1 */}
                                         <fieldset className={(this.state.step === 1) ? "section is-active" : "section"}>
                                             <h3>Details</h3>
-                                            <input type="text" name="title" id="title" value={this.state.title} onChange={this.setTitle} />
-                                            <textarea name="description" value={this.state.description} onChange={this.setDesc} cols="40" rows="5"></textarea>
+                                            <input type="text" name="title" id="title" placeholder="Title" value={this.state.title} onChange={this.setTitle} />
+                                            <textarea name="description" value={this.state.description} placeholder="Description" onChange={this.setDesc} cols="40" rows="5"></textarea>
                                             <input type="date" name="start" id="start" value={this.state.startingDay} min={this.state.startingDay} onChange={this.setStartingDay} />
                                             <TimePicker start="10:00" end="21:00" value={this.state.startTime} step={30} onChange={this.setStartTime} />
                                             <input type="date" name="end" id="end" value={this.state.endingDay} min={this.state.endingDay} onChange={this.setEndingDay} />
@@ -525,7 +526,7 @@ export class Admin extends React.Component {
                                         {/* Step 2 */}
                                         <fieldset className={(this.state.step === 2) ? "section is-active" : "section"}>
                                             <h3>Voters</h3>
-                                            <input type="text" name="newVoter" id="newVoter" value={this.state.new_voter} onChange={this.setNewVoter} />
+                                            <input type="text" name="newVoter" id="newVoter" placeholder="Enter new voter mail address" value={this.state.new_voter} onChange={this.setNewVoter} />
                                             <button onClick={this.createNewVoter}>+</button>
                                             <table id="voterList">
                                                 <tbody>
