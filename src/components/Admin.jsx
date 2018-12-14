@@ -3,6 +3,7 @@ import TimePicker from 'react-bootstrap-time-picker';
 import Countdown from './Countdown.jsx';
 import defaultUser from './img/default_candidate.jpeg';
 import logo from '../imgs/logo.png';
+import $ from 'jquery';
 
 //server address
 const server = "http://d1.init.votty.net:7049";
@@ -12,6 +13,14 @@ const server = "http://d1.init.votty.net:7049";
 //const seed = votingURL.get('seed');
 const seed = "i6dzmdi6z17gt788xy5rniib19ss1batf53k85tg0os3n9g1droyw6e9y12pltdfvwa4w1r4b37sqtd38gwj31zi6crbpp14u3a3izdw3x7grl5sduu43fw1ysivnhwftmy2gndw6nyq18v2nv7jvn13gd3w30kbfrulk3szvf60najo0e17cipoz83wl97bxzjtf2g0m0wtbcnpq8ls27qx838multpb4x00avd71ddzkwauye10d6koy14he71";
 
+$(document).ready(function(){
+    var file = $("#image");
+    var reader = new FileReader(file[0]);
+    console.log(file);
+    reader.onload = function(){
+        console.log(reader.result);
+    }
+})
 
 export class Admin extends React.Component {
 
@@ -221,8 +230,8 @@ export class Admin extends React.Component {
         this.reset();
         var startingDay = new Date(this.state.startingDay).getTime();
         var endingDay = new Date(this.state.endingDay).getTime();
-        var startTime = this.state.startTime * 1000;
-        var endTime = this.state.endTime * 1000;
+        var startTime = this.state.startTime;
+        var endTime = this.state.endTime;
 
         console.log('parameters for create : \n');
         console.log('title : ' + this.state.title);
@@ -470,10 +479,8 @@ export class Admin extends React.Component {
 
                         </div>
 
-                        <div id="image" className="container zindex-modal"> <img
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Postech_Logotype.svg/2000px-Postech_Logotype.svg.png"
-                            alt="new"
-                        />                     </div>
+                        <div id="image" className="container zindex-modal"> <img src={logo} alt="null" />
+                        </div>
                         {/* Form for voting creation */
                         /* First div is used to blur the whole screen when the candaidate creation pop-up is displayed */}
                         <div id="text" className={(this.state.popup ? "blur-in container zindex-modal" : " container zindex-modal")}>
@@ -560,13 +567,12 @@ export class Admin extends React.Component {
                     </div>
                 );
             case "manage":
-                this.getVotingInfo(); 
+                this.getVotingInfo();
                 return (
                     <div className="App">
-                        <div id="image" className="container zindex-modal"> <img
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Postech_Logotype.svg/2000px-Postech_Logotype.svg.png"
-                            alt="new"
-                        />                     </div>
+                        <div id="image" className="container zindex-modal">
+                            <img src={logo} alt="new" />
+                        </div>
 
                         <div id='text' className="container zindex-modal">
                             <a href="/admin" style={{ textDecoration: "none" }} onClick={this.reset}>
@@ -583,15 +589,27 @@ export class Admin extends React.Component {
                             </h2>
 
                         </div>
-                        {/*Voting information*/}
-                        <h1 className="text-center">{this.state.voting_title}</h1>
-                        <p className="text-center">{this.state.voting_description}</p>
-                        <p className="text-center">{this.setDateFormat(this.state.start)} - {this.setDateFormat(this.state.end)}</p>
-                        <div className="text-center">{countdown}</div>
-                        <p className="text-center">Vote rate : {this.state.voteRate}</p>
-                        <p className="text-center">Number of participant : {this.state.participantsCount}</p>
-                        <p className="text-center">Votes count : {this.state.voteCount}</p>
-                        {candidates}
+                        <br />
+                        <br />
+                        <div id="votingpage">
+                            {/*Voting information*/}
+                            <h1 className="text-center">{this.state.voting_title}</h1>
+                            <p className="text-center">{this.state.voting_description}</p>
+                            <p className="text-center">{this.setDateFormat(this.state.start)} - {this.setDateFormat(this.state.end)}</p>
+                            <div className="text-center">{countdown}</div>
+                            <p className="text-center">Vote rate : {this.state.voteRate}</p>
+                            <p className="text-center">Number of participant : {this.state.participantsCount}</p>
+                            <p className="text-center">Votes count : {this.state.voteCount}</p>
+
+                            <div id='canditatelist' className="candidates-list"></div>
+                            <div className="loadContent">
+                                <div className="container">
+                                    <div className="row">
+                                        {candidates}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 );
             default:

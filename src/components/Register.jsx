@@ -14,7 +14,7 @@ const server = "http://d1.init.votty.net:7049";
 //Get the voting seed
 //const votingURL = new URLSearchParams(window.location.search);
 //const seed = votingURL.get('seed');
-const seed = "i6dzmdi6z17gt788xy5rniib19ss1batf53k85tg0os3n9g1droyw6e9y12pltdfvwa4w1r4b37sqtd38gwj31zi6crbpp14u3a3izdw3x7grl5sduu43fw1ysivnhwftmy2gndw6nyq18v2nv7jvn13gd3w30kbfrulk3szvf60najo0e17cipoz83wl97bxzjtf2g0m0wtbcnpq8ls27qx838multpb4x00avd71ddzkwauye10d6koy14he71";
+const seed = "9f8bcenii12s6rdxbocksqzks8al12d1namrspkbem63u95qd7usddqb17odc8x2lg1504tk647sfulxnt367165p8924vi13bc0knl6keoqqpyysejgxrn0wr915pq3ut4pd16yo4viozu1b5jynyrsvofxqx2h7412sa6l8bze10u1tkivg310j95mbmw2ulf0wkbe3vqdro1u5kbc4il10ffvrlkgd0qphw3pqupqn7n2rb18w03h3f29gfpz";
 export class Register extends React.Component {
 
     constructor(props) {
@@ -49,7 +49,8 @@ export class Register extends React.Component {
 
             //vote
             selected_candidate: '',
-            public_key :''
+            public_key :'',
+            path : ''
 
         };
 
@@ -180,6 +181,9 @@ export class Register extends React.Component {
     }
 
     logIn(e) {
+
+        var _this = this;
+
         //Set the authentication code variable with the value filled in
         this.setState({ step: 3, emptyInput: true, authentication_code: e.target.value, warning: true })
         console.log("Verify parameters : \n")
@@ -202,8 +206,13 @@ export class Register extends React.Component {
         })
             .then(response => response.json())
             .then((response) => { //callback function to get the public key which is used to send the vote
-                console.log("respond from verify function : " + response);
-                this.setState({ public_key: response })
+                var res = JSON.parse(response);
+                var path = res.path;
+                var key = res.key;
+                _this.setState({public_key : key, path : path});
+                console.log("answer from request : ");
+                console.log("path : " + path);
+                console.log("key : " + key);
             })
         document.getElementById("form").reset();
     }
@@ -230,11 +239,13 @@ export class Register extends React.Component {
         var html = [];
         var candidates = this.state.candidates;
         candidates.forEach(candidate => {
-            const id = candidate.id;
+            const id = candidate.id
             var currentCandidate = [];
             var img = [];
             var name = [];
             var desc = [];
+            var img = "data:image/png;base64, " + candidate.media;
+    
 
             //set name
             name.push(<h2 key={candidate.id} className="text-uppercase my-1 font-weight-light ">{candidate.name} ({this.state.result[id]})</h2>);
@@ -244,7 +255,7 @@ export class Register extends React.Component {
                 img.push(<figure key={candidate.id} id={candidate.id} className="snip1566" onClick={this.vote} ><img src={defaultUser} alt="sq-sample14" /><figcaption><i className="ion-checkmark"></i>{/*<a href="#"></a>*/}</figcaption></figure>);
             }
             else {
-                img.push(<figure key={candidate.id} id={candidate.id} className="snip1566" onClick={this.vote}><img src={candidate.media} alt="sq-sample14" /><figcaption><i className="ion-checkmark"></i>{/*<a href="#"></a>*/}</figcaption></figure>);
+                img.push(<figure key={candidate.id} id={candidate.id} className="snip1566" onClick={this.vote}><img src={img} alt="sq-sample14" /><figcaption><i className="ion-checkmark"></i>{/*<a href="#"></a>*/}</figcaption></figure>);
             }
 
             //set description
@@ -308,15 +319,19 @@ export class Register extends React.Component {
     //confirm the vote 
     confirmVote() {
         console.log("request parameters : ");
-        console.log("public key : " + this.state.public_key )
-        console.log("selected candidate : " + this.state.selected_candidate )
+        console.log("path : " + this.state.path );
+        console.log("public key : " + this.state.public_key );
+        console.log("seed : " + seed );
+        console.log("selected candidate : " + this.state.selected_candidate );
         fetch(server + '/vote', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify([
+                this.state.path,
                 this.state.public_key,
+                seed,
                 this.state.selected_candidate
             ])
         })
