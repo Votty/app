@@ -196,7 +196,7 @@ export class Admin extends React.Component {
         var startTime = this.state.startTime * 1000;
         var endTime = this.state.endTime * 1000;
 
-        /*fetch(server + '/create', {
+        fetch(server + '/create', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -214,7 +214,8 @@ export class Admin extends React.Component {
             .then(response => response.json())
             .then((res) => { //callback function to get seed
                 this.setState({ participation_link: res })
-            })*/
+            })
+            
         this.setSuccess();
     }
 

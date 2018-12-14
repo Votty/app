@@ -14,7 +14,7 @@ const server = "http://d1.init.votty.net:7049";
 //Get the voting seed
 //const votingURL = new URLSearchParams(window.location.search);
 //const seed = votingURL.get('seed');
-
+const seed = "i6dzmdi6z17gt788xy5rniib19ss1batf53k85tg0os3n9g1droyw6e9y12pltdfvwa4w1r4b37sqtd38gwj31zi6crbpp14u3a3izdw3x7grl5sduu43fw1ysivnhwftmy2gndw6nyq18v2nv7jvn13gd3w30kbfrulk3szvf60najo0e17cipoz83wl97bxzjtf2g0m0wtbcnpq8ls27qx838multpb4x00avd71ddzkwauye10d6koy14he71";
 export class Register extends React.Component {
 
     constructor(props) {
@@ -29,7 +29,7 @@ export class Register extends React.Component {
             warning : false, //Print the warning message once the user is logged
 
             //session key from cookie
-            session_key: '',
+            session_key: cookies.get('session_key'),
 
             //popup
             popup: false,
@@ -48,7 +48,8 @@ export class Register extends React.Component {
             result: [],
 
             //vote
-            selected_candidate: ''
+            selected_candidate: '',
+            public_key :''
 
         };
 
@@ -74,8 +75,7 @@ export class Register extends React.Component {
     //get the information of the current voting session
     componentDidMount() { //Trigger the request once the page is loaded
         const api = "/info?"; //call the /info function to fetch the data
-        const votingId = "ct5btusrx1df5ipu51e1bxu90n96x1277pbjsvj95j9z7bbe14k6yw2uay13ao0iqjhc70uenojx017m6fk4dhm1cnjswy14938dhehgz1azrmeugiy5o9uu8tp5cabggju92ttbekqxetfex3f3iei9lb9n0zwl3rmfngfv50tywxoh19b01dduua1ckrh109ndkz5yz2hi51dhpd786pnij5bli2bz143k65nir8psp8e91eixcgx3z3kfkx39";
-        fetch(server + api + "seed=" + votingId)
+        fetch(server + api + "seed=" + seed)
             .then(res => {
                 return res.json() //parse result into json file
             }
@@ -142,10 +142,9 @@ export class Register extends React.Component {
     setAuthenticationField(event) {
         $("#inputField").val(""); //Clean the field 
 
-        /*fetch(server + '/try', { //Request the server to receive an authentication code by email
-            method: 'POST',
+        fetch(server + '/try', { //Request the server to receive an authentication code by email
+            method: 'PUT',
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify([
@@ -154,19 +153,29 @@ export class Register extends React.Component {
             ])
         })
         .then(response => response.json())
-        })*/
+        .then(function(response){
+
+            //Put the session in the cookies and in the state
+            cookies.set('session_key',response);
+            this.setState({'session_key' : response});
+            console.log(cookies.get('session_key'));
+        })
 
         //Put this in the callback of the fetch
         this.setState({ step: 2, emptyInput: true });
     }
 
     logIn(e) {
+        //Set the authentication code variable with the value filled in
         this.setState({ step: 3, emptyInput: true, authentication_code: e.target.value, warning: true })
+        console.log(this.state.userId);
+        console.log(seed);
+        console.log(this.state.authentication_code);
+        console.log(this.state.session_key);
 
-        /*fetch(server + '/verify', { //send userID, publickey, 
-            method: 'POST',
+        fetch(server + '/verify', { //Send a request to verify the authentication code and the session key 
+            method: 'PUT',
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify([
@@ -177,12 +186,9 @@ export class Register extends React.Component {
             ])
         })
             .then(response => response.json())
-            .then((res) => { //callback function to get seed
-                this.setState({ participation_link: res })
-            })*/
-
-        cookies.set('myCat', 'Pacman', { path: '/' });
-
+            .then((response) => { //callback function to get the public key which is used to send the vote
+                this.setState({ public_key: response })
+            })
         document.getElementById("form").reset();
     }
 
@@ -207,6 +213,7 @@ export class Register extends React.Component {
     setCandidates() {
         var html = [];
         var candidates = this.state.candidates;
+        console.log(candidates);
         candidates.forEach(candidate => {
             const id = candidate.id;
             var currentCandidate = [];
@@ -272,22 +279,6 @@ export class Register extends React.Component {
         $("#image").addClass('blur-in');
         $("#fork").addClass('blur-in');
 
-        /*fetch(server + '/vote', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify([
-                this.state.userId,
-                seed
-            ])
-        })
-            .then(response => response.json())
-            .then((res) => { //callback function to get seed
-                this.setState({ participation_link: res })
-            })*/
-
         this.setState({ popup: true, selected_candidate: candidate_id });
         console.log(this.state.selected_candidate);
 
@@ -303,21 +294,18 @@ export class Register extends React.Component {
 
     //confirm the vote 
     confirmVote() {
-        /*fetch(server + '/vote', {
-            method: 'POST',
+        fetch(server + '/vote', {
+            method: 'PUT',
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify([
-                this.state.session_cookie,
+                this.state.public_key,
                 this.state.selected_candidate
             ])
         })
-            .then(response => response.json())
-            .then((res) => { //callback function to get seed
-                this.setState({ participation_link: res })
-            })*/
+            .then(response => response.json());
+
         this.closePopup();
     }
 
