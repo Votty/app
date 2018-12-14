@@ -13,15 +13,6 @@ const server = "http://d1.init.votty.net:7049";
 //const seed = votingURL.get('seed');
 const seed = "i6dzmdi6z17gt788xy5rniib19ss1batf53k85tg0os3n9g1droyw6e9y12pltdfvwa4w1r4b37sqtd38gwj31zi6crbpp14u3a3izdw3x7grl5sduu43fw1ysivnhwftmy2gndw6nyq18v2nv7jvn13gd3w30kbfrulk3szvf60najo0e17cipoz83wl97bxzjtf2g0m0wtbcnpq8ls27qx838multpb4x00avd71ddzkwauye10d6koy14he71";
 
-$(document).ready(function(){
-    var file = $("#image");
-    var reader = new FileReader(file[0]);
-    console.log(file);
-    reader.onload = function(){
-        console.log(reader.result);
-    }
-})
-
 export class Admin extends React.Component {
 
     constructor(props) {
@@ -200,7 +191,14 @@ export class Admin extends React.Component {
     }
 
     setImage(e) {
-        console.log(e.target);
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.addEventListener("load", function () {
+            console.log(reader.result);
+        }, false);
+        if (file) {
+            reader.readAsDataURL(file);
+        }
         this.setState({ newCandidate_image: e.target.value });
     }
 
