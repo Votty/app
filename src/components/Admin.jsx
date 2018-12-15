@@ -11,7 +11,7 @@ const server = "http://d1.init.votty.net:7049";
 //Get the voting seed
 //const votingURL = new URLSearchParams(window.location.search);
 //const seed = votingURL.get('seed');
-const seed = "i6dzmdi6z17gt788xy5rniib19ss1batf53k85tg0os3n9g1droyw6e9y12pltdfvwa4w1r4b37sqtd38gwj31zi6crbpp14u3a3izdw3x7grl5sduu43fw1ysivnhwftmy2gndw6nyq18v2nv7jvn13gd3w30kbfrulk3szvf60najo0e17cipoz83wl97bxzjtf2g0m0wtbcnpq8ls27qx838multpb4x00avd71ddzkwauye10d6koy14he71";
+const seed = "1yflncf0sb0dhit33uxb603kitq14bz2edxq8cj3t272q6wmd5zub0l1b2dn47eub16a85m9sm0kloc9whvqkk85a02vb1aiu4dbg711br4brprjwqv0x3fdmluq8l4iaa31bzxeyy5cr4lw6n19vg15tb7hbe4bmmiqjd9k558f6ocivixlvcu7vii17eniqoem6cnharku2018x09uo1nsucfhkt9v1pi791cie7u819bvhd17pny4h7hk1btp";
 
 export class Admin extends React.Component {
 
@@ -193,13 +193,15 @@ export class Admin extends React.Component {
     setImage(e) {
         var file = e.target.files[0];
         var reader = new FileReader();
+        var temp;
         reader.addEventListener("load", function () {
             console.log(reader.result);
+            temp = reader.result;
         }, false);
         if (file) {
             reader.readAsDataURL(file);
         }
-        this.setState({ newCandidate_image: e.target.value });
+        this.setState({newCandidate_image : temp});
     }
 
     setDescription(e) {
@@ -229,8 +231,8 @@ export class Admin extends React.Component {
         this.reset();
         var startingDay = new Date(this.state.startingDay).getTime();
         var endingDay = new Date(this.state.endingDay).getTime();
-        var startTime = this.state.startTime;
-        var endTime = this.state.endTime;
+        var startTime = this.state.startTime * 1000;
+        var endTime = this.state.endTime * 1000;
 
         console.log('parameters for create : \n');
         console.log('title : ' + this.state.title);
@@ -257,6 +259,7 @@ export class Admin extends React.Component {
             .then(response => response.json())
             .then((res) => { //callback function to get seed
                 this.setState({ participation_link: res })
+                console.log("participation link : " + res);
             })
 
         this.setSuccess();
@@ -438,7 +441,7 @@ export class Admin extends React.Component {
                             {/*Notification displayed when a voting is created*/}
                             <div className={this.state.success ? "alert alert-success" : "d-none"} role="alert">
                                 <button type="button" onClick={this.setSuccess} className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <strong>Success!</strong> Your voting has been created ! Here is the participation link : <br /> {this.state.participation_link}
+                                <strong>Success!</strong> Your voting has been created ! You will receive the participation link by email
                             </div>
 
                             {/*Buttons to select the mode*/}

@@ -14,7 +14,7 @@ const server = "http://d1.init.votty.net:7049";
 //Get the voting seed
 //const votingURL = new URLSearchParams(window.location.search);
 //const seed = votingURL.get('seed');
-const seed = "9f8bcenii12s6rdxbocksqzks8al12d1namrspkbem63u95qd7usddqb17odc8x2lg1504tk647sfulxnt367165p8924vi13bc0knl6keoqqpyysejgxrn0wr915pq3ut4pd16yo4viozu1b5jynyrsvofxqx2h7412sa6l8bze10u1tkivg310j95mbmw2ulf0wkbe3vqdro1u5kbc4il10ffvrlkgd0qphw3pqupqn7n2rb18w03h3f29gfpz";
+const seed = "x25ittv2rbek0hjksn70rq4x9dvoz0yq0wcvg83wyqgsadvvq3tsf2sfe1fraqm1abcpdy2epi1sykw0q4qnguj3l3odxiyf7lxs8o1ffy8hxa8yikjm8lmd34a5knq6x9wpu9rlfiqekvhcy74cvqa7yd10l0zk82ni6lfzrvk4sjof1jua3s133sezshnq1cvil3o4vx8gfcqk7krqsh1suk8j125tj1l6l4q0u6vrr0lxb298yjg6qfwfo3aq";
 export class Register extends React.Component {
 
     constructor(props) {
@@ -244,7 +244,7 @@ export class Register extends React.Component {
             var img = [];
             var name = [];
             var desc = [];
-            var img = "data:image/png;base64, " + candidate.media;
+            var img_load = "data:image/png;base64, " + candidate.media;
     
 
             //set name
@@ -252,10 +252,10 @@ export class Register extends React.Component {
 
             //set img
             if (candidate.media === "") {
-                img.push(<figure key={candidate.id} id={candidate.id} className="snip1566" onClick={this.vote} ><img src={defaultUser} alt="sq-sample14" /><figcaption><i className="ion-checkmark"></i>{/*<a href="#"></a>*/}</figcaption></figure>);
+                img.push(<figure key={candidate.id} id={candidate.id} className="snip1566" onClick={this.vote} ><img key={candidate.id} src={defaultUser} alt="sq-sample14" /><figcaption><i className="ion-checkmark"></i>{/*<a href="#"></a>*/}</figcaption></figure>);
             }
             else {
-                img.push(<figure key={candidate.id} id={candidate.id} className="snip1566" onClick={this.vote}><img src={img} alt="sq-sample14" /><figcaption><i className="ion-checkmark"></i>{/*<a href="#"></a>*/}</figcaption></figure>);
+                img.push(<figure key={candidate.id} id={candidate.id} className="snip1566" onClick={this.vote}><img key={candidate.id} src={img_load} alt="sq-sample14" /><figcaption><i className="ion-checkmark"></i>{/*<a href="#"></a>*/}</figcaption></figure>);
             }
 
             //set description
