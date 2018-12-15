@@ -14,7 +14,8 @@ const server = "http://d1.init.votty.net:7049";
 //Get the voting seed
 //const votingURL = new URLSearchParams(window.location.search);
 //const seed = votingURL.get('seed');
-const seed = "zj52rd7erd6pt9jrw21hk7yzd5m1jf32lduj19usvz2stifv4cjozcmk3ez6oco2qbt0favidmaqw37idn5bycgh00pb9yoa9z7q96l43263e1c6wxquvx2p01owxyyc9rf3i7x90kqhmmszn3dg4chixjnyigblwsbw2la7zd6ql10bduq29tguq4j4hg57l4trmpw7eaaz2zp11c1843687uc66tfs21y5r1kq5zvi8lbwhin9r2310w5a9msm";
+const seed =
+    "17dl3xeaslhdv1y2o8vai1pddxtw19tztu8kaanll17ppxnoqczveuiqyw0ne9nuv161cjtbpwc1d098uhtxp17motbaxj010yy0gxvpyw6725rbh0hayenikmrm1isc1lh3q39fy1cis110obs0gao2yjhphcoq11v0ft8trciqhvti3q5dav3mk619ryav6x6cq16r9cu1cuec9fjrlyxcy9q20xkeslj3h0pttir6ozjg5lu9i33z2ysmjhpg";
 export class Register extends React.Component {
 
     constructor(props) {
@@ -244,7 +245,7 @@ export class Register extends React.Component {
             var img = [];
             var name = [];
             var desc = [];
-            var img_load = "data:image/png;base64, " + candidate.media;
+            var img_load = candidate.media;
     
 
             //set name

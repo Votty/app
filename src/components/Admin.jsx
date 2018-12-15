@@ -13,6 +13,8 @@ const server = "http://d1.init.votty.net:7049";
 //const seed = votingURL.get('seed');
 const seed = "zj52rd7erd6pt9jrw21hk7yzd5m1jf32lduj19usvz2stifv4cjozcmk3ez6oco2qbt0favidmaqw37idn5bycgh00pb9yoa9z7q96l43263e1c6wxquvx2p01owxyyc9rf3i7x90kqhmmszn3dg4chixjnyigblwsbw2la7zd6ql10bduq29tguq4j4hg57l4trmpw7eaaz2zp11c1843687uc66tfs21y5r1kq5zvi8lbwhin9r2310w5a9msm";
 
+var tempImage = "";
+
 export class Admin extends React.Component {
 
     constructor(props) {
@@ -48,7 +50,6 @@ export class Admin extends React.Component {
             //popup for candidate creation
             popup: false,
             newCandidate_description: '',
-            newCandidate_image: '',
             newCandidate_name: '',
 
             //notify the user when the voting has been created
@@ -193,14 +194,12 @@ export class Admin extends React.Component {
     setImage(e) {
         var file = e.target.files[0];
         var reader = new FileReader();
-        var temp;
         reader.addEventListener("load", function () {
-            temp = reader.result;
+            tempImage = reader.result;
         }, false);
         if (file) {
             reader.readAsDataURL(file);
         }
-        this.setState({newCandidate_image : ''});
     }
 
     setDescription(e) {
@@ -215,13 +214,14 @@ export class Admin extends React.Component {
         e.preventDefault();
         let temp = this.state.candidates.slice();
         console.log(temp);
-        var newCandidate = '["' + this.state.newCandidate_name + '","' + this.state.newCandidate_description + '","' + this.state.newCandidate_image + '"]';
+        var newCandidate = '["' + this.state.newCandidate_name + '","' + this.state.newCandidate_description + '","' + tempImage + '"]';
         newCandidate = newCandidate.replace(/\\/g, '\\\\');
         newCandidate = JSON.parse(newCandidate);
         temp.push(newCandidate);
         this.setState({ candidates: temp });
         this.resetCandidateForm();
         this.closePopup();
+        tempImage = "";
     }
 
     //Methods once the creation is over
