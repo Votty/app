@@ -195,13 +195,12 @@ export class Admin extends React.Component {
         var reader = new FileReader();
         var temp;
         reader.addEventListener("load", function () {
-            console.log(reader.result);
             temp = reader.result;
         }, false);
         if (file) {
             reader.readAsDataURL(file);
         }
-        this.setState({newCandidate_image : temp});
+        this.setState({newCandidate_image : ''});
     }
 
     setDescription(e) {

@@ -14,7 +14,7 @@ const server = "http://d1.init.votty.net:7049";
 //Get the voting seed
 //const votingURL = new URLSearchParams(window.location.search);
 //const seed = votingURL.get('seed');
-const seed = "x25ittv2rbek0hjksn70rq4x9dvoz0yq0wcvg83wyqgsadvvq3tsf2sfe1fraqm1abcpdy2epi1sykw0q4qnguj3l3odxiyf7lxs8o1ffy8hxa8yikjm8lmd34a5knq6x9wpu9rlfiqekvhcy74cvqa7yd10l0zk82ni6lfzrvk4sjof1jua3s133sezshnq1cvil3o4vx8gfcqk7krqsh1suk8j125tj1l6l4q0u6vrr0lxb298yjg6qfwfo3aq";
+const seed = "1705egpk0okqug0z63j13rq8hdizxjwd18tdayh178xfv65m8imo66s36ozvug0x2u0iaogp7x99oce4p2213nk4uyrg16k4u9fa06agognx5o3v6ovqtgab8h1zt4a5yottv9z0u76qcw611551d8ylb0kvuwvjm5c09n91ml4hqo711zwcukhk0koqgtmu5ha6fu7gdeukh6t1beknkjsi4gn7li19ilokmlkezoroyjy1do0wnjsrkgepbvnd";
 export class Register extends React.Component {
 
     constructor(props) {
