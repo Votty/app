@@ -11,7 +11,7 @@ const server = "http://d1.init.votty.net:7049";
 //Get the voting seed
 //const votingURL = new URLSearchParams(window.location.search);
 //const seed = votingURL.get('seed');
-const seed = "1yflncf0sb0dhit33uxb603kitq14bz2edxq8cj3t272q6wmd5zub0l1b2dn47eub16a85m9sm0kloc9whvqkk85a02vb1aiu4dbg711br4brprjwqv0x3fdmluq8l4iaa31bzxeyy5cr4lw6n19vg15tb7hbe4bmmiqjd9k558f6ocivixlvcu7vii17eniqoem6cnharku2018x09uo1nsucfhkt9v1pi791cie7u819bvhd17pny4h7hk1btp";
+const seed = "zj52rd7erd6pt9jrw21hk7yzd5m1jf32lduj19usvz2stifv4cjozcmk3ez6oco2qbt0favidmaqw37idn5bycgh00pb9yoa9z7q96l43263e1c6wxquvx2p01owxyyc9rf3i7x90kqhmmszn3dg4chixjnyigblwsbw2la7zd6ql10bduq29tguq4j4hg57l4trmpw7eaaz2zp11c1843687uc66tfs21y5r1kq5zvi8lbwhin9r2310w5a9msm";
 
 export class Admin extends React.Component {
 
